@@ -14,12 +14,11 @@ var enemyAttack = 12;
 // "LOSE" - Player robot's health is zero or less
 
 // you can log multiple values at once like this
-window.alert("Welcome to Robot Gladiators!");
 
 var fight = function(enemyName) {
     // Alert players that they are starting the round
     
-    while(enemyHealth > 0) {
+  while(playerHealth > 0 && enemyHealth > 0) {
 
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
@@ -34,6 +33,7 @@ var fight = function(enemyName) {
       // check enemy's health
       if (enemyHealth <= 0) {
         window.alert(enemyName + " has died!");
+        break;
       } else {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
       }
@@ -47,6 +47,7 @@ var fight = function(enemyName) {
       // check player's health
       if (playerHealth <= 0) {
         window.alert(playerName + " has died!");
+        break;
       } else {
         window.alert(playerName + " still has " + playerHealth + " health left.");
       }
@@ -58,7 +59,9 @@ var fight = function(enemyName) {
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye!");
             // subtract money from playerMoney for skipping
-            playerMoney = playerMoney - 2;
+            playerMoney = playerMoney - 10;
+            console.log("playerMoney", playerMoney);
+            break;
         }
         // if no (false), ask question again by running fight() again
         else {
@@ -71,9 +74,15 @@ var fight = function(enemyName) {
   }
 }
 
-
 for(var i = 0; i < enemyNames.length; i++) {
-  var pickedEnemyName = enemyNames[i];
-  enemyHealth = 50;
-  fight(pickedEnemyName);
+  if (playerHealth > 0) {
+    window.alert("Welcome to Robot Gladiators! Round " + ( i + 1) );
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
+  }
+  else {
+    window.alert("You have lost your robot in battle! Game Over");
+    break;
+  }
 }
